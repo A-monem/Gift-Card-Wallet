@@ -1,0 +1,28 @@
+[
+    {
+        "model": "wallets.Card",
+        "pk": 1,
+        "fields": {
+            "product": "Coles",
+            "description": "Grocery",
+            "value": 10,
+            "voucher": "1201203211",
+            "pin": "0123",
+            "archived": 0,
+            "user": 1
+        }
+    },
+    {
+        "model": "wallets.Card",
+        "pk": 2,
+        "fields": {
+            "product": "Bunnings",
+            "description": "Warehouse",
+            "value": 50,
+            "voucher": "1201203211",
+            "pin": "0123",
+            "archived": 0,
+            "user": 2
+        }
+    }
+]
