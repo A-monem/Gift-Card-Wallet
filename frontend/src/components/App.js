@@ -1,16 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import Store from './Store'
+import Profile from './Profile'
 
-
-class App extends React.Component{
-    render(){
-        return(
-            <h1>Hello from React</h1>
-        )
+class App extends React.Component {
+    render() {
+      return (
+        <Router>
+            <Switch>
+              <Route exact path='/' component={Store} />
+              <Route exact path='/:username' component={Profile} />
+            </Switch>
+        </Router>
+      )
     }
-}
+  }
 
-ReactDOM.render(
-    <App />,
-    document.getElementById('app')
-)
+export default App;
