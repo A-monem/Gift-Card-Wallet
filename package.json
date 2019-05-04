@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development ./wallet_manager/frontend/src/index.js --output ./wallet_manager/frontend/src/static/frontend/main.js",
+    "build": "webpack --mode production ./wallet_manager/frontend/src/index.js --output ./wallet_manager/frontend/src/static/frontend/main.js"
   },
   "author": "",
   "license": "ISC",
