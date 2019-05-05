@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import Store from './Store'
 import Profile from './Profile'
 
 class App extends React.Component {
@@ -8,7 +7,7 @@ class App extends React.Component {
       return (
         <Router>
             <Switch>
-              <Route exact path='/:username' component={Profile} />
+              <Route exact path='/:username' component={Profile} /> //route to Profile page
             </Switch>
         </Router>
       )

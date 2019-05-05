@@ -8,6 +8,7 @@ function getCards() {
     .catch(err => console.log(err))
 }
 
+//function to get csrftoken cookie
 function getCookie(name) {
   var cookieValue = null;
   if (document.cookie && document.cookie !== '') {
@@ -22,6 +23,7 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+//single card compopnent 
 function Card(props) {
   let productName = (props.card.product).toLowerCase()
   let imageUrl = `../static/frontend/images/${productName}.jpg`
@@ -41,7 +43,7 @@ function Card(props) {
     </div>
   )
 }
-// {info.name && <li>{info.name}</li>}
+// display all cards component
 function DisplayCards(props){
   return(
       props.cards.filter((card) => (
@@ -64,11 +66,13 @@ class Profile extends React.Component {
     this.state = {
       cards: []
     }
-    this.handleArchive = this.handleArchive.bind(this) //binding this keyword to the object Profile
+     //binding this keyword to the object Profile
+    this.handleArchive = this.handleArchive.bind(this)
     this.handleGetRequest = this.handleGetRequest.bind(this)
     this.putCard = this.putCard.bind(this)
   };
 
+  //call getCard fn 
   handleGetRequest(){
     getCards().then((cards) => {
       console.log(cards)
@@ -80,6 +84,7 @@ class Profile extends React.Component {
     })
   }
 
+  //update archive flag useing PUT method
   putCard(card, card_id) {
     let token = getCookie('csrftoken') //getting csrftoken required to put data into DB
   
