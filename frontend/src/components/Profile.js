@@ -8,7 +8,20 @@ function getCards() {
     .catch(err => console.log(err))
 }
 
-
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = jQuery.trim(cookies[i]);
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
 function Card(props) {
   let productName = (props.card.product).toLowerCase()
   let imageUrl = `../static/frontend/images/${productName}.jpg`
@@ -22,23 +35,25 @@ function Card(props) {
         <p className="card-text">voucher number: { props.card.voucher }</p>
         <p className="card-text">PIN: { props.card.pin }</p>
         <p className="card-text">Description: { props.card.description }</p>
-        <a className="btn btn btn-outline-danger btn-sm" onClick={props.onArchive.bind(null, card_id)}>Archive</a>
+        {props.active && <a className="btn btn btn-outline-danger btn-xs" onClick={props.onArchive.bind(null, card_id)}>Activate</a>}
+        {!props.active && <a className="btn btn btn-outline-danger btn-xs" onClick={props.onArchive.bind(null, card_id)}>Archive</a>}
       </div>
     </div>
   )
 }
-
+// {info.name && <li>{info.name}</li>}
 function DisplayCards(props){
   return(
-    <div className="row">
-      {props.cards.filter((card) => (
-        !card.archived
+      props.cards.filter((card) => (
+        card.archived === props.active
       )).map((card) => (
-        <div key={card.voucher} className="col-md-4">
-          <Card className='profile-cards' card={card} onArchive={props.archive}/>
+        <div className="row">
+          <div key={card.voucher} className="col">
+            <Card className='profile-cards' card={card} onArchive={props.archive} active={props.active}/>
+          </div>
         </div>
-      ))}
-    </div>
+      ))
+    
   )
 }
 
@@ -66,7 +81,8 @@ class Profile extends React.Component {
   }
 
   putCard(card, card_id) {
-    let token = 'NmQ6xoHfkxaFQIG8yTFz1TzMy73xsmoK0aLI0bxeNxSlXraBf5vi5fKeDmq2vnKK' 
+    let token = getCookie('csrftoken') //getting csrftoken required to put data into DB
+  
     return axios({
       method: 'put',
       url: `http://127.0.0.1:8000/api/${card_id}/update/`,
@@ -96,13 +112,24 @@ class Profile extends React.Component {
   
   render(){
     return (
-      <div>
-        <h1>Profile</h1>
+      <div className='row'>
+        <div className="col-md-6">
+          <h5>Active Cards</h5>
+          <DisplayCards 
+          cards={this.state.cards}
+          archive={this.handleArchive}
+          active = {false}
+          />
+        </div>
+        <div className="col-md-6">
+        <h5>Archived Cards</h5>
         <DisplayCards 
         cards={this.state.cards}
         archive={this.handleArchive}
+        active = {true}
         />
-      </div>
+        </div>
+    </div>
     )
   }
 }

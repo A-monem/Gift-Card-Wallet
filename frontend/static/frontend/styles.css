@@ -2,7 +2,7 @@
     background: rgb(230, 198, 198)
 }
 
-.display_card{
+.display_cards img{
     width:100%;
     border-radius: 4px;
 }
@@ -20,9 +20,17 @@
 .store-cards{
     margin-bottom: 20px;
 }
+.row{
+    margin-top: 20px;
+}
+
+h5{
+    text-align: center;
+}
 .card{
     color: #d0021b;
-     width: 16rem;
+    width: 16rem;
+    margin: auto;
 }
 .card img{
     width: 100%;

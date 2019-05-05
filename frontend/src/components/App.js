@@ -8,7 +8,6 @@ class App extends React.Component {
       return (
         <Router>
             <Switch>
-              <Route exact path='/' component={Store} />
               <Route exact path='/:username' component={Profile} />
             </Switch>
         </Router>

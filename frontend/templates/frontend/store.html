@@ -1,0 +1,38 @@
+{% extends 'frontend/base.html' %}
+{% load static %}
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Gift Card Wallet</h1>
+    <p>Buy for yourself or send to a friend</p>
+    {% if user.is_authenticated %}
+        <a class="btn btn-outline-danger btn-sm" href="/" role="button">Buy/Send</a>
+    {% else %}
+        <a class="btn btn-outline-danger btn-sm" href="{% url 'login'%}" role="button">Login to Buy</a>
+    {% endif %}
+</div>
+
+<div class="display_cards">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 m-0">
+                <img src="{% static "frontend/images/coles.jpg" %}" alt="coles">
+            </div>
+            <div class="col-md-3">
+                <img src="{% static "frontend/images/woolworths.jpg" %}" alt="woolworths">
+            </div>
+            <div class="col-md-3">
+                <img src="{% static "frontend/images/bunnings.jpg" %}" alt="jb-hi-fi">
+            </div>
+            <div class="col-md-3">
+                <img src="{% static "frontend/images/priceline.jpg" %}" alt="priceline">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock content %}
