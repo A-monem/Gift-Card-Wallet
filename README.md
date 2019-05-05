@@ -51,6 +51,6 @@ Enjoy :)
 
 ## Screenshots
 
-![Store page screenshot](/screenshots/Store.jpg)
+![Store page screenshot](/screenshots/S.png)
 ![Profile page screenshot](/screenshots/Profile.jpg)
 
