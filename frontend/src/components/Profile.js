@@ -8,22 +8,6 @@ function getCards() {
     .catch(err => console.log(err))
 }
 
-function putCard(card, card_id) {
-  let token = 'NmQ6xoHfkxaFQIG8yTFz1TzMy73xsmoK0aLI0bxeNxSlXraBf5vi5fKeDmq2vnKK' 
-  axios({
-    method: 'put',
-    url: `http://127.0.0.1:8000/api/${card_id}/update/`,
-    data: JSON.stringify(card),
-    headers: {
-      "X-CSRFToken": token,
-      "Content-Type": "application/json" 
-    }
-  })
-  .catch(function (error) {
-      console.log(error);
-    });
-}
-
 
 function Card(props) {
   let productName = (props.card.product).toLowerCase()
@@ -47,7 +31,9 @@ function Card(props) {
 function DisplayCards(props){
   return(
     <div className="row">
-      {props.cards.map((card) => (
+      {props.cards.filter((card) => (
+        !card.archived
+      )).map((card) => (
         <div key={card.voucher} className="col-md-4">
           <Card className='profile-cards' card={card} onArchive={props.archive}/>
         </div>
@@ -63,22 +49,12 @@ class Profile extends React.Component {
     this.state = {
       cards: []
     }
-    this.handleArchive = this.handleArchive.bind(this)
+    this.handleArchive = this.handleArchive.bind(this) //binding this keyword to the object Profile
+    this.handleGetRequest = this.handleGetRequest.bind(this)
+    this.putCard = this.putCard.bind(this)
   };
-  
-  handleArchive(id){
-    let card = this.state.cards.filter((card) => (
-      card.id === id 
-    ))
-    
-    card[0].archived
-    ? card[0].archived = false
-    : card[0].archived = true
-   
-    putCard(card[0], id)
-  }
 
-  componentDidMount(){
+  handleGetRequest(){
     getCards().then((cards) => {
       console.log(cards)
       this.setState(() => {
@@ -87,6 +63,35 @@ class Profile extends React.Component {
         }
       })
     })
+  }
+
+  putCard(card, card_id) {
+    let token = 'NmQ6xoHfkxaFQIG8yTFz1TzMy73xsmoK0aLI0bxeNxSlXraBf5vi5fKeDmq2vnKK' 
+    return axios({
+      method: 'put',
+      url: `http://127.0.0.1:8000/api/${card_id}/update/`,
+      data: JSON.stringify(card),
+      headers: {
+        "X-CSRFToken": token,
+        "Content-Type": "application/json" 
+      }
+    }).then(() => this.handleGetRequest())
+  }
+
+  handleArchive(id){
+    let card = this.state.cards.filter((card) => ( 
+      card.id === id  //return an array of the selected card object
+    ))
+    //toggle the archive flag
+    card[0].archived
+    ? card[0].archived = false
+    : card[0].archived = true
+   //call the put method 
+    this.putCard(card[0],id)
+  }
+
+  componentDidMount(){ 
+      this.handleGetRequest() //load cards after rendring and mounting DOM
   }
   
   render(){
