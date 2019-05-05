@@ -14,14 +14,27 @@
 .login td{
     padding: 10px;
 }
-
 #navbarNav a{
    display: inline;
 }
-
-
-.store_cards{
+.store-cards{
     margin-bottom: 20px;
 }
-
+.card{
+    color: #d0021b;
+     width: 16rem;
+}
+.card img{
+    width: 100%;
+    height: 100%;
+ }
+.card-title{
+    color: black;
+}
+.card-text{
+    margin: 0;
+}
+.card a{
+   margin-top: 20px;
+}
 

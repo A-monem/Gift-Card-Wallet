@@ -1,4 +1,5 @@
 var path = require('path');
+var axios = require('axios')
 
 module.exports = {
     entry: './frontend/src/index.js',
@@ -16,5 +17,5 @@ module.exports = {
     mode: 'development',
     devServer: {
         historyApiFallback: true,
-    },
+    }
 }

@@ -116,3 +116,4 @@ LOGIN_REDIRECT_URL = 'store'
 LOGOUT_REDIRECT_URL = 'store' 
 
 LOGIN_URL = 'login'
+
